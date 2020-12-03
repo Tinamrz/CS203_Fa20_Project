@@ -74,7 +74,7 @@ void *mythreaded_vector_blockmm(void *t)
                         //register int indC10=indC00+ARRAY_SIZE;
                      //   register double reg1=c[indC00/ARRAY_SIZE][indC00%ARRAY_SIZE],reg2=c[(indC00+1)/ARRAY_SIZE][(indC00+1)%ARRAY_SIZE],reg3=c[(indC10)/ARRAY_SIZE][(indC10)%ARRAY_SIZE],reg4=c[(indC10+1)/ARRAY_SIZE][(indC10+1)%ARRAY_SIZE];
                     
-                      register double res=c[ii][jj]
+                       register double res=c[ii][jj]
                         for(kk = k; kk < k+(ARRAY_SIZE/n) && kk<ARRAY_SIZE; kk++)
                         
                             res+=a[ii][kk]*b[kk][jj];
