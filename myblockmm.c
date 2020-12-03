@@ -76,25 +76,25 @@ void *mythreaded_vector_blockmm(void *t)
                         //  va = _mm256_load_pd(&c[ii][jj]);
                         
                         for(kk = k; kk < k+(ARRAY_SIZE/n) && kk<ARRAY_SIZE; kk+=2)
-                            //  {
+                        {
                             register int indA00=ii*ARRAY_SIZE+kk,indB00=kk*ARRAY_SIZE+jj;
                         register int indA10=indA00+ARRAY_SIZE,indB10=indB00+ARRAY_SIZE;
                         register double a00=a[indA00/ARRAY_SIZE][indA00%ARRAY_SIZE],a01=a[(indA00+1)/ARRAY_SIZE][(indA00+1)%ARRAY_SIZE],a10=a[indA10/ARRAY_SIZE][indA10%ARRAY_SIZE],a11=a[(indA10+1)/ARRAY_SIZE][(indA10+1)%ARRAY_SIZE];
-                        // register double b00=*b[indB00],b01=*b[indB00+1],b10=*b[indB10],b11=*b[indB10+1];
-                        // reg1+=a00*b00+a01*b10;
-                        // reg2+=a00*b01+a01*b11;
-                        // reg3+=a10*b00+a11*b10;
-                        // reg4+=a10*b01+a11*b11;
-                        //       va = _mm256_broadcast_sd(&a[ii][kk]);
-                        //     vb = _mm256_load_pd(&b[kk][jj]);
-                        //    vc = _mm256_add_pd(vc,_mm256_mul_pd(va,vb));
-                        //  }
-                        //   _mm256_store_pd(&c[ii][jj],vc);
-                        //printf("Reg1%d\n",reg1);
-                        //*c[indC00]=reg1;
-                        // *c[indC00+1]=reg2;
-                        //*c[indC10]=reg3;
-                        // *c[indC10+1]=reg4;
+                          register double b00=b[indB00/ARRAY_SIZE][indB00%ARRAY_SIZE],b01=b[(indB00+1)/ARRAY_SIZE][(indB00+1)%ARRAY_SIZE],b10=b[indB10/ARRAY_SIZE][indB10%ARRAY_SIZE],b11=b[(indB10+1)/ARRAY_SIZE][(indB10+1)%ARRAY_SIZE];
+                         reg1+=a00*b00+a01*b10;
+                         reg2+=a00*b01+a01*b11;
+                         reg3+=a10*b00+a11*b10;
+                         reg4+=a10*b01+a11*b11;
+//                               va = _mm256_broadcast_sd(&a[ii][kk]);
+//                             vb = _mm256_load_pd(&b[kk][jj]);
+//                            vc = _mm256_add_pd(vc,_mm256_mul_pd(va,vb));
+                          }
+//                           _mm256_store_pd(&c[ii][jj],vc);
+     
+                        c[indC00/ARRAY_SIZE][indC00%ARRAY_SIZE]=reg1;
+                         c[(indC00+1)/ARRAY_SIZE][(indC00+1)%ARRAY_SIZE]=reg2;
+                        c[(indC10)/ARRAY_SIZE][(indC10)%ARRAY_SIZE]=reg3;
+                         c[(indC10+1)/ARRAY_SIZE][(indC10+1)%ARRAY_SIZE]=reg4;
                     }
                 }
             }
